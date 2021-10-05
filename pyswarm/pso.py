@@ -83,9 +83,10 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
         The objective value at ``g``
     p : array
         The best known position per particle
-    pf: arrray
+    pf: array
         The objective values at each position in p
-   
+	error: int
+		Error indicator. (0 - Convergence, 1 - Non-convergence, 2- Non-convergence + Not feasible design constraints)
     """
    
     assert len(lb)==len(ub), 'Lower- and upper-bounds must be the same length'
@@ -132,7 +133,7 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
     fp = np.ones(S)*np.inf  # best particle function values
     g = []  # best swarm position
     fg = np.inf  # best swarm position starting value
-    
+        
     # Initialize the particle's position
     x = lb + x*(ub - lb)
 
@@ -206,29 +207,42 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
                 print('Stopping search: Swarm best objective change less than {:}'\
                     .format(minfunc))
                 if particle_output:
-                    return p_min, fp[i_min], p, fp
+                    error = 0
+                    return p_min, fp[i_min], p, fp, error
                 else:
-                    return p_min, fp[i_min]
+                    error = 0
+                    return p_min, fp[i_min], error
             elif stepsize <= minstep:
                 print('Stopping search: Swarm best position change less than {:}'\
                     .format(minstep))
                 if particle_output:
-                    return p_min, fp[i_min], p, fp
+                    error = 0
+                    return p_min, fp[i_min], p, fp, error
                 else:
-                    return p_min, fp[i_min]
+                    error = 0
+                    return p_min, fp[i_min], error
             else:
                 g = p_min.copy()
                 fg = fp[i_min]
+				
 
         if debug:
             print('Best after iteration {:}: {:} {:}'.format(it, g, fg))
         it += 1
-
+        
+     
+	   
     print('Stopping search: maximum iterations reached --> {:}'.format(maxiter))
     
+    
+             
     if not is_feasible(g):
         print("However, the optimization couldn't find a feasible design. Sorry")
+        error = 2
+        return g, fg, error
     if particle_output:
-        return g, fg, p, fp
+        error = 1 
+        return g, fg, error, p, fp
     else:
-        return g, fg
+        error = 1
+        return g, fg, error
