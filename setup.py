@@ -7,15 +7,15 @@ def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 setup(
-    name='pyswarm',
+    name='pyswarmDST',
     version=pyswarm.__version__,
     author=pyswarm.__author__,
-    author_email='tisimst@gmail.com',
+    author_email='daniel.stark@axens.net',
     description='Particle swarm optimization (PSO) with constraint support',
-    url='https://github.com/tisimst/pyswarm',
+    url='https://github.com/DST-002/pyswarmDST',
     license='BSD License',
     long_description=read('README.rst'),
-    packages=['pyswarm'],
+    packages=['pyswarmDST'],
     install_requires=['numpy'],
     keywords=[
         'PSO',
