@@ -207,19 +207,19 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
                 print('Stopping search: Swarm best objective change less than {:}'\
                     .format(minfunc))
                 if particle_output:
-                    error = 0
+                    error = 10
                     return p_min, fp[i_min], p, fp, error
                 else:
-                    error = 0
+                    error = 11
                     return p_min, fp[i_min], error
             elif stepsize <= minstep:
                 print('Stopping search: Swarm best position change less than {:}'\
                     .format(minstep))
                 if particle_output:
-                    error = 0
+                    error = 12
                     return p_min, fp[i_min], p, fp, error
                 else:
-                    error = 0
+                    error = 13
                     return p_min, fp[i_min], error
             else:
                 g = p_min.copy()
