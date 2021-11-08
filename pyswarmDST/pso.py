@@ -133,7 +133,7 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
     fp = np.ones(S)*np.inf  # best particle function values
     g = []  # best swarm position
     fg = np.inf  # best swarm position starting value
-        
+    error = 2    
     # Initialize the particle's position
     x = lb + x*(ub - lb)
 
