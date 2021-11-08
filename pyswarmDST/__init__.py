@@ -13,5 +13,4 @@ Copyright: 2013-2015
 __author__ = 'Abraham Lee'
 __version__ = '0.7'
 
-from pyswarm.pso import *
-    
+from pyswarmDST.pso import *
