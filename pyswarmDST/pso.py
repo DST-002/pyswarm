@@ -85,8 +85,8 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
         The best known position per particle
     pf: array
         The objective values at each position in p
-	error: int
-		Error indicator. (0 - Convergence, 1 - Non-convergence, 2- Non-convergence + Not feasible design constraints)
+    error: int
+	Error indicator
     """
    
     assert len(lb)==len(ub), 'Lower- and upper-bounds must be the same length'
@@ -241,8 +241,8 @@ def pso(func, lb, ub, ieqcons=[], f_ieqcons=None, args=(), kwargs={},
         error = 2
         return g, fg, error
     if particle_output:
-        error = 1 
+        error = 20 
         return g, fg, error, p, fp
     else:
-        error = 1
+        error = 20
         return g, fg, error
